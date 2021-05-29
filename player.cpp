@@ -41,11 +41,3 @@ void players_settings()
 
 }
 
-/*int main()
-{
-    display();
-    players_settings();
-    play(no_of_players);
-    display_moves(no_of_players);
-    return 0;
-}*/
