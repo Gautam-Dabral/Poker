@@ -30,11 +30,7 @@ void players_settings()
        cin>>names[plyr];
        plyr++;
     }
-    cout<<"\n\n";
-    for(int i=0;i<no_of_players;i++)
-        cout<<"\t\t\t"<<names[i]<<"\t\t";
 
-    cout<<"\n\n";
 
 }
 
