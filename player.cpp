@@ -12,12 +12,10 @@ void display()
     cout<<"\t\t\t\t";
     for(int i=0;i<38;i++)
         cout<<"*";
-    cout<<"\n\n \t\t\t\t\t\tPOKER\n\n\t\t\t\t";
+    cout<<"\n\n \t\t\t\t\t\t7 STUD POKER\n\n\t\t\t\t";
     for(int i=0;i<38;i++)
         cout<<"*";
-
 }
-
 
 void players_settings()
 {
@@ -31,7 +29,6 @@ void players_settings()
        cout<<endl<<"\tEnter player"<<plyr+1<<" name: ";
        cin>>names[plyr];
        plyr++;
-
     }
     cout<<"\n\n";
     for(int i=0;i<no_of_players;i++)

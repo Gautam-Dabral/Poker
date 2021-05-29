@@ -94,7 +94,7 @@ ostream& operator<<(ostream& dout, card C)           //overloading operator << f
 
 int main ()
 {
-    int seed,i,x,y;
+    int seed,i,x;
     card c1;
     seed=time(NULL);
     srand(seed);

@@ -1,7 +1,7 @@
 #include<iostream>
 #include<time.h>
 #include<cstdlib>
-#include"card_name.cpp"
+#include"E:\poker_pankaj\card_name.cpp"
 
 using namespace std;
 
@@ -11,18 +11,18 @@ struct card
     int suit,value;
 };
 
-card *moves=NULL;
+card *hand=NULL;
 
 bool compare(card temp,int no_of_players)
 {
     int i=0;
     while(i<no_of_players*5)
     {
-        if(moves[i].suit<0)
+        if(hand[i].suit<0)
             break;
         else
         {
-            if(moves[i].suit==temp.suit && moves[i].value==temp.value)
+            if(hand[i].suit==temp.suit && hand[i].value==temp.value)
                 return true;
             i++;
         }
@@ -34,18 +34,17 @@ void init(int no_of_players)
 {
     for(int i=0;i<no_of_players*5;i++)
     {
-        moves[i].suit=-1;
-        moves[i].value=-1;
+        hand[i].suit=-1;
+        hand[i].value=-1;
     }
 }
 
-
-void play(int no_of_players)
+void deal_card(int no_of_players)
 {
     int seed=time(NULL);
     srand(seed);
 
-    moves=new card[no_of_players*5];
+    hand=new card[no_of_players*5];
 
     init(no_of_players);
 
@@ -57,14 +56,14 @@ void play(int no_of_players)
         temp.value=rand()%13;
         if(!compare(temp,no_of_players))
         {
-           moves[i]=temp;
+           hand[i]=temp;
            i++;
         }
     }
 }
 
 
-void display_moves(int no_of_players)
+void display_hands(int no_of_players)
 {
     int curr=0,j=1,loop=0,count=0;
 
@@ -73,9 +72,9 @@ void display_moves(int no_of_players)
         if(curr<no_of_players*5)
         {
             cout<<"\t\t";
-            get_card_value(moves[curr].value);
+            get_card_value(hand[curr].value);
             cout<<" of ";
-            get_suit_name(moves[curr].suit);
+            get_suit_name(hand[curr].suit);
             cout<<"\t\t";
             curr+=5;
             count++;
