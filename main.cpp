@@ -1,6 +1,6 @@
 #include<iostream>
-#include"E:\poker_pankaj\player.cpp"
-#include"E:\poker_pankaj\play.cpp"
+#include"player.cpp"
+#include"play.cpp"
 
 using namespace std;
 

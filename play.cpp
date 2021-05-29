@@ -1,7 +1,7 @@
 #include<iostream>
 #include<time.h>
 #include<cstdlib>
-#include"E:\poker_pankaj\card_name.cpp"
+#include"card_name.cpp"
 
 using namespace std;
 
@@ -75,10 +75,10 @@ void display_hands(int no_of_players, string *names)
             j++;
         }
 
-        cout<<"\n\t\t";
-        get_card_value(moves[i].value);
+        cout<<"\n\t\t\t";
+        get_card_value(hand[i].value);
         cout<<" of ";
-        get_suit_name(moves[i].suit);
+        get_suit_name(hand[i].suit);
         i++;
 
     }
