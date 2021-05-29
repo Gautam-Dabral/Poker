@@ -21,7 +21,7 @@ public :
     void setcard (int x)                   // random integers x and y being passed as arguments
     {
 	v=value[(x%13)];
-    	s=suit[(x%4)];
+    	s=suits[(x%4)];
      }
     card (int x)
     {cout<<"too many arguments";}
