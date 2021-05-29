@@ -24,7 +24,7 @@ void players_settings()
     int n,plyr=0;
     cout<<"\n\n\n\tEnter the no of players: ";
     cin>>no_of_players;
-    string *names=new string[no_of_players];
+    names=new string[no_of_players];
     n=no_of_players;
     while(n-->0)
     {
