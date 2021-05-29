@@ -63,28 +63,23 @@ void deal_card(int no_of_players)
 }
 
 
-void display_hands(int no_of_players)
+void display_hands(int no_of_players, string *names)
 {
-    int curr=0,j=1,loop=0,count=0;
+    int i=0,j=0;
 
-    while(count<no_of_players*5)
+    while(i<no_of_players*5)
     {
-        if(curr<no_of_players*5)
+        if(i%5==0)
         {
-            cout<<"\t\t";
-            get_card_value(hand[curr].value);
-            cout<<" of ";
-            get_suit_name(hand[curr].suit);
-            cout<<"\t\t";
-            curr+=5;
-            count++;
-        }
-        else
-        {
-            curr=j;
+           cout<<"\n\n\t\t"<<names[j]<<" cards:\n";
             j++;
-            cout<<endl;
         }
+
+        cout<<"\n\t\t";
+        get_card_value(moves[i].value);
+        cout<<" of ";
+        get_suit_name(moves[i].suit);
+        i++;
 
     }
     cout<<"\n\n\n";
