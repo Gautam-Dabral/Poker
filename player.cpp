@@ -1,4 +1,4 @@
-#include<iostream>
+ #include<iostream>
 
 using namespace std;
 
@@ -7,12 +7,12 @@ int no_of_players;
 string *names=NULL;;
 
 
-void display()
+void display()                                 // displays intro
 {
     cout<<"\t\t\t\t";
     for(int i=0;i<38;i++)
         cout<<"*";
-    cout<<"\n\n \t\t\t\t\t\t7 STUD POKER\n\n\t\t\t\t";
+    cout<<"\n\n \t\t\t\t\t\tTEXAS HOLD\'EM POKER\n\n\t\t\t\t";
     for(int i=0;i<38;i++)
         cout<<"*";
 }

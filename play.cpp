@@ -44,7 +44,7 @@ void deal_card(int no_of_players)
     int seed=time(NULL);
     srand(seed);
 
-    hand=new card[no_of_players*7];
+    hand=new card[no_of_players*7];             // hand has 7 card type values
 
     init(no_of_players);
 
