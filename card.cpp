@@ -13,10 +13,6 @@ public :
     {v=(x%13);
      s=(x%4);
      cardname(v,s);}
-    card (int x)
-    {cout<<"too many arguments";}
-    card ()
-    {}
     void cardname(int,int);                      //declaration
     friend ostream& operator<<(ostream &, card);
 
@@ -26,7 +22,7 @@ ostream& operator<<(ostream& dout, card C)           //overloading operator << f
         dout<<C.value<<" of "<<C.suit<<endl;
         return(dout);
     }
-    void card::cardname(int p, int q)
+void card::cardname(int p, int q)
     {
         switch(p)
         {

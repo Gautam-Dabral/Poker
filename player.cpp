@@ -17,12 +17,30 @@ void display()
         cout<<"*";
 }
 
-void players_settings()
+void players_settings()                          // player input function
 {
-    int n,plyr=0;
-    cout<<"\n\n\n\tEnter the no of players: ";
-    cin>>no_of_players;
-    names=new string[no_of_players];
+    int n,c,plyr=0;
+    cout<<"\n\n\n\tEnter the no of players : ";
+    do
+   {
+       cin>>no_of_players;
+       c=0;
+       if(no_of_players>7)
+       {cout<<"\tNo. of players cannot exceed 7, Enter again : ";
+        c++;}
+       else if(no_of_players==1)
+        {cout<<"\tPlaying alone is no fun!, need more players to start the game\n\tEnter again : ";
+        c++;}
+       else if(no_of_players<1)
+        {cout<<"\tInvalid no. of players, Enter again : ";
+       c++;}
+        else
+         {cout<<"\n\n\t\t\t********LET\'S BEGIN THE GAME********";
+         c--;}
+   }while(c>0);
+
+    names=new string[no_of_players];             // storing player names
+
     n=no_of_players;
     while(n-->0)
     {
