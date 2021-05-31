@@ -46,7 +46,7 @@ void players_settings()                          // player input function
         {cout<<"\tInvalid no. of players, Enter again : ";
        c++;}
         else
-         {cout<<"\n\n\t\t\t********LET\'S BEGIN THE GAME********";
+         {cout<<"\n\n\t\t\t********LET\'S BEGIN THE GAME********\n\n\t";
          c--;}
    }while(c>0);
 
@@ -129,7 +129,7 @@ void get_suit_name(int q)
         }
 }
 
-void deal_card(int no_of_players, string* names)
+void deal_preflop(int no_of_players, string* names)
 {
     int seed=time(NULL),i=0,j=0;
     card temp;
@@ -168,7 +168,7 @@ void display_hands(int no_of_players, string *names, int upto)
         }
     cout<<"\n\n\n";
 }
-void set_flop (card temp, int j)
+void set_in_hand (card temp, int j)
 {
      int i;
      for(i=0; i<no_of_players; i++)
@@ -196,19 +196,72 @@ void deal_flop ()
         cout<<" of ";
         get_suit_name(temp.suit);
         cout<<"\n\t";
-        set_flop(temp,j);
+        set_in_hand(temp,j);
         j++;
     }
+}
+
+void deal_turn ()
+{
+     card temp;
+    int seed,i,j=5;
+    seed=time(NULL);
+    srand(seed);
+    cout<<"\t To see the Turn card : press any key\n\n\n\t";
+    getch();
+    cout<<"\tThe Turn card is : ";
+
+    for (i=0; i<1; i++)
+    {
+        cout<<"\n\n\n\t\t";
+        temp.value=rand()%13;
+        temp.suit=rand()%4;
+        get_card_value(temp.value);
+        cout<<" of ";
+        get_suit_name(temp.suit);
+        cout<<"\n\t";
+        set_in_hand(temp,j);
+        //j++;
+    }
+
+}
+void deal_river ()
+{
+    card temp;
+    int seed,i,j=6;
+    seed=time(NULL);
+    srand(seed);
+    cout<<"\t To see the River card : press any key\n\n\n\t";
+    getch();
+    cout<<"\tThe River card is : ";
+
+    for (i=0; i<1; i++)
+    {
+        cout<<"\n\n\n\t\t";
+        temp.value=rand()%13;
+        temp.suit=rand()%4;
+        get_card_value(temp.value);
+        cout<<" of ";
+        get_suit_name(temp.suit);
+        cout<<"\n\t";
+        set_in_hand(temp,j);
+        //j++;
+    }
+
 }
 int main()
 {
     display();                                  // defined in player.cpp
     players_settings();                        // defined in player.cpp
-    deal_card(no_of_players,names);           // defined in play.cpp
+    deal_preflop(no_of_players,names);           // defined in play.cpp
     display_hands(no_of_players,names,2);      // defined in play.cpp
     deal_flop();
     display_hands(no_of_players,names,5);
-    //deal_turn();
-    //deal_river();
+    deal_turn();
+    display_hands(no_of_players,names,6);
+    deal_river();
+    cout<<"\n\n\t\t Final card hands of all players are as follows : \n\n\t";
+    display_hands(no_of_players,names,7);
+
     return 0;
 }
