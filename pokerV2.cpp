@@ -1,5 +1,6 @@
 #include<iostream>
 #include<cstdlib>
+#include<conio.h>
 #include<time.h>
 using namespace std;
 
@@ -14,16 +15,16 @@ class hand
     card c[7];
 };
 hand *h=NULL;;
-int no_of_players;
+int no_of_players,upto;
 string *names=NULL;;
 
 void display()                                 // displays intro
 {
     cout<<"\t\t\t\t";
-    for(int i=0;i<38;i++)
+    for(int i=0;i<50;i++)
         cout<<"*";
-    cout<<"\n\n \t\t\t\t\t\tTEXAS HOLD\'EM POKER\n\n\t\t\t\t";
-    for(int i=0;i<38;i++)
+    cout<<"\n\n\t\t\t\t\t       TEXAS HOLD\'EM POKER \n\n\t\t\t\t";
+    for(int i=0;i<50;i++)
         cout<<"*";
 }
 
@@ -149,7 +150,7 @@ void deal_card(int no_of_players, string* names)
     }
 }
 
-void display_hands(int no_of_players, string *names)
+void display_hands(int no_of_players, string *names, int upto)
 {
     int i=0,j=0;
 
@@ -157,7 +158,7 @@ void display_hands(int no_of_players, string *names)
         {
             cout<<"\n\n\t\t"<<h[i].name<<" cards :\n";
             cout<<"\n\t\t\t";
-            for (j=0; j<2; j++)
+            for (j=0; j<upto; j++)
                 {
                     get_card_value(h[i].c[j].value);
                     cout<<" of ";
@@ -167,12 +168,47 @@ void display_hands(int no_of_players, string *names)
         }
     cout<<"\n\n\n";
 }
+void set_flop (card temp, int j)
+{
+     int i;
+     for(i=0; i<no_of_players; i++)
+        {
+                h[i].c[j]=temp;
+        }
+}
 
+void deal_flop ()
+{
+    card temp;
+    int seed,i,j=2;
+    seed=time(NULL);
+    srand(seed);
+    cout<<"\t To see the community cards : press any key\n\n\n\t";
+    getch();
+    cout<<"\tThe three community cards are : ";
+
+    for (i=0; i<3; i++)
+    {
+        cout<<"\n\n\n\t\t";
+        temp.value=rand()%13;
+        temp.suit=rand()%4;
+        get_card_value(temp.value);
+        cout<<" of ";
+        get_suit_name(temp.suit);
+        cout<<"\n\t";
+        set_flop(temp,j);
+        j++;
+    }
+}
 int main()
 {
-    display();                                // defined in player.cpp
-    players_settings();                      // defined in player.cpp
-    deal_card(no_of_players,names);               // defined in play.cpp
-    display_hands(no_of_players,names);    // defined in play.cpp
+    display();                                  // defined in player.cpp
+    players_settings();                        // defined in player.cpp
+    deal_card(no_of_players,names);           // defined in play.cpp
+    display_hands(no_of_players,names,2);      // defined in play.cpp
+    deal_flop();
+    display_hands(no_of_players,names,5);
+    //deal_turn();
+    //deal_river();
     return 0;
 }
