@@ -18,6 +18,14 @@ hand *h=NULL;;
 int no_of_players,upto;
 string *names=NULL;;
 
+void clr_scrn()    //function to clear screen
+{
+    int n=no_of_players*15;
+    while(n-->0)
+        cout<<"\n";
+}
+
+
 void display()                                 // displays intro
 {
     cout<<"\t\t\t\t";
@@ -185,6 +193,7 @@ void deal_flop ()
     srand(seed);
     cout<<"\t To see the community cards : press any key\n\n\n\t";
     getch();
+    clr_scrn();       //clear screen
     cout<<"\tThe three community cards are : ";
 
     for (i=0; i<3; i++)
@@ -209,6 +218,7 @@ void deal_turn ()
     srand(seed);
     cout<<"\t To see the Turn card : press any key\n\n\n\t";
     getch();
+    clr_scrn();
     cout<<"\tThe Turn card is : ";
 
     for (i=0; i<1; i++)
@@ -233,8 +243,8 @@ void deal_river ()
     srand(seed);
     cout<<"\t To see the River card : press any key\n\n\n\t";
     getch();
+    clr_scrn();
     cout<<"\tThe River card is : ";
-
     for (i=0; i<1; i++)
     {
         cout<<"\n\n\n\t\t";
@@ -249,10 +259,17 @@ void deal_river ()
     }
 
 }
-int main()
+
+
+
+void play(int no_of_players)
 {
-    display();                                  // defined in player.cpp
-    players_settings();                        // defined in player.cpp
+    int n=no_of_players,round=1;
+    char choice;
+
+    while(n-->0)
+    {
+    cout << "\n\n\t\t\tROUND "<<round<<"\n";
     deal_preflop(no_of_players,names);           // defined in play.cpp
     display_hands(no_of_players,names,2);      // defined in play.cpp
     deal_flop();
@@ -262,6 +279,23 @@ int main()
     deal_river();
     cout<<"\n\n\t\t Final card hands of all players are as follows : \n\n\t";
     display_hands(no_of_players,names,7);
+    cout<<"\n\t\t\tTHE WINNER OF ROUND "<<round<<" is: "<<"\n\n";
+    cout<<"\n\n\tWANTS TO CONTINUE(y/n): ";
+    cin>>choice;
+    if(choice=='n')
+        break;
+    round++;
+    clr_scrn();
+    }
 
+}
+
+
+
+int main()
+{
+    display();                                  // defined in player.cpp
+    players_settings();                        // defined in player.cpp
+    play(no_of_players);
     return 0;
 }
