@@ -10,13 +10,13 @@ class hand
 {
     public :
     int credit;
-    string name;
+    string name, status;
     card c[7];
 };
 
-int no_of_players,upto,i=0,s_b,b_b;
-string *names=NULL;;
+int no_of_players, upto, i=0, s_b, b_b, round=1;
 hand *h=NULL;;
+
 void clr_scrn()    //function to clear screen
 {
     int n=no_of_players*15;
@@ -25,16 +25,16 @@ void clr_scrn()    //function to clear screen
 }
 void display()                                   // displays intro
 {
-    int j=0;
+    int c,j=0;
     cout<<"\t\t\t\t";
     for(int i=0;i<50;i++)
         cout<<"*";
     cout<<"\n\n\t\t\t\t\t       TEXAS HOLD\'EM POKER \n\n\t\t\t\t";
     for(int i=0;i<50;i++)
         cout<<"*";
-    cout<<"\n\n\n\t\tSelect stakes - "<<"\n\n\n\t\t\t1. 100 - 200\n\n\n\t\t\t2. 200 - 400\n\n\n\t\t\t3. 500 -1000";
-    cin>>i;
-    switch(i)
+    cout<<"\n\n\n\t\tSelect stakes - "<<"\n\n\n\t\t\t1. 100 - 200\n\n\n\t\t\t2. 200 - 400\n\n\n\t\t\t3. 500 - 1000\n\n\t\t";
+    cin>>c;
+    switch(c)
     {
         do
         {
@@ -48,8 +48,8 @@ void display()                                   // displays intro
             j++;
             break;}
             default : {cout<<"Error selection , Select again : ";
-            cin>>i;}
-        }while(j<1)
+            cin>>c;}
+        }while(j<1);
     }
 }
 
@@ -61,8 +61,8 @@ void players_settings()                          // player input function
    {
        cin>>no_of_players;
        c=0;
-       if(no_of_players>7)
-       {cout<<"\tNo. of players cannot exceed 7, Enter again : ";
+       if(no_of_players>9)
+       {cout<<"\tNo. of players cannot exceed 8, Enter again : ";
         c++;}
        else if(no_of_players==1)
         {cout<<"\tPlaying alone is no fun!, need more players to start the game\n\tEnter again : ";
@@ -75,24 +75,28 @@ void players_settings()                          // player input function
          c--;}
    }while(c>0);
 
-    names=new string[no_of_players];             // storing player names
+    h=new hand[no_of_players];
 
     n=no_of_players;
-    while(n-->0)
+    for(i=0; i<no_of_players; i++)
     {
        cout<<endl<<"\tEnter player"<<plyr+1<<" name: ";
-       cin>>names[plyr];
+       cin>>h[i].name;
        plyr++;
+       h[i].credit=10000;
     }
 
 }
-void display_hands(int no_of_players, string *names, int upto)
+
+void display_hands(int no_of_players,hand *h, int upto)
 {
     int i=0,j=0;
 
     for(i=0; i<no_of_players; i++)
         {
-            cout<<"\n\n\t\t"<<h[i].name<<" cards :\n";
+            cout<<"\n\n\t\t"<<h[i].name<<"      "<<h[i].status;
+            cout<<"\n\n\t\tCredit : "<<h[i].credit<<" Points";
+            cout<<"\n\n\t\tCards : ";
             cout<<"\n\t\t\t";
             for (j=0; j<upto; j++)
                 {
@@ -104,3 +108,4 @@ void display_hands(int no_of_players, string *names, int upto)
         }
     cout<<"\n\n\n";
 }
+

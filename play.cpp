@@ -6,18 +6,14 @@
 using namespace std;
 
 
-void deal_preflop(int no_of_players, string* names)
+void deal_preflop(int no_of_players)
 {
     int seed=time(NULL),i=0,j=0;
     card temp;
     srand(seed);
 
-    h=new hand[no_of_players];           // hand has no_of_players players having 7 card type values each
-
-
     for(i=0; i<no_of_players; i++)
     {
-        h[i].name=names[i];
         for(j=0; j<2; j++)
          {
              temp.suit=rand()%4;
@@ -49,7 +45,7 @@ void deal_flop ()
 
     for (i=0; i<3; i++)
     {
-        cout<<"\n\n\n\t\t";
+        cout<<"\n\n\t\t\t";
         temp.value=rand()%13;
         temp.suit=rand()%4;
         get_card_value(temp.value);
@@ -111,30 +107,51 @@ void deal_river ()
 
 }
 
-
+void set_status (int no_of_players)
+{
+    if(round<no_of_players)
+    {
+    h[(round%no_of_players)-1].status="Dealer";
+    h[round%no_of_players].status="Small-Blind";
+    h[(round+1)%no_of_players].status="Big-Blind";
+    }
+    else if (round==no_of_players)
+    {h[no_of_players-1].status="Dealer";
+    h[0].status="Small-Blind";
+    h[1].status="Big-Blind";}
+    else {}
+}
+void erase_status (int no_of_players)
+{
+    for (int i=0; i<no_of_players; i++)
+        h[i].status="               ";
+}
 void play(int no_of_players)
 {
-    int n=no_of_players,round=1;
+    int n=no_of_players;
     char choice;
 
     while(n-->0)
     {
     cout << "\n\n\t\t\tROUND "<<round<<"\n";
-    deal_preflop(no_of_players,names);           // defined in play.cpp
-    display_hands(no_of_players,names,2);      // defined in play.cpp
+
+    set_status(no_of_players);
+    deal_preflop(no_of_players);           // defined in play.cpp
+    display_hands(no_of_players,h,2);      // defined in play.cpp
     deal_flop();
-    display_hands(no_of_players,names,5);
+    display_hands(no_of_players,h,5);
     deal_turn();
-    display_hands(no_of_players,names,6);
+    display_hands(no_of_players,h,6);
     deal_river();
     cout<<"\n\n\t\t Final card hands of all players are as follows : \n\n\t";
-    display_hands(no_of_players,names,7);
+    display_hands(no_of_players,h,7);
     cout<<"\n\t\t\tTHE WINNER OF ROUND "<<round<<" is: "<<"\n\n";
     cout<<"\n\n\tWANTS TO CONTINUE(y/n): ";
     cin>>choice;
     if(choice=='n')
         break;
     round++;
+    erase_status(no_of_players);
     clr_scrn();
     }
 
