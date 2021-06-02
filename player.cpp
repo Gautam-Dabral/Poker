@@ -9,11 +9,12 @@ struct card
 class hand
 {
     public :
+    int credit;
     string name;
     card c[7];
 };
 
-int no_of_players,upto,i=0;
+int no_of_players,upto,i=0,s_b,b_b;
 string *names=NULL;;
 hand *h=NULL;;
 void clr_scrn()    //function to clear screen
@@ -24,12 +25,32 @@ void clr_scrn()    //function to clear screen
 }
 void display()                                   // displays intro
 {
+    int j=0;
     cout<<"\t\t\t\t";
     for(int i=0;i<50;i++)
         cout<<"*";
     cout<<"\n\n\t\t\t\t\t       TEXAS HOLD\'EM POKER \n\n\t\t\t\t";
     for(int i=0;i<50;i++)
         cout<<"*";
+    cout<<"\n\n\n\t\tSelect stakes - "<<"\n\n\n\t\t\t1. 100 - 200\n\n\n\t\t\t2. 200 - 400\n\n\n\t\t\t3. 500 -1000";
+    cin>>i;
+    switch(i)
+    {
+        do
+        {
+            case 1: {s_b=100; b_b=200;
+            j++;
+            break;}
+            case 2: {s_b=200; b_b=400;
+            j++;
+            break;}
+            case 3: {s_b=500; b_b=1000;
+            j++;
+            break;}
+            default : {cout<<"Error selection , Select again : ";
+            cin>>i;}
+        }while(j<1)
+    }
 }
 
 void players_settings()                          // player input function
