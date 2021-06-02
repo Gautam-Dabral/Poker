@@ -1,86 +1,142 @@
 #include<iostream>
-#include<time.h>
 #include<cstdlib>
-#include"card_name.cpp"
+#include<conio.h>
+#include<time.h>
 
 using namespace std;
 
 
-struct card
+void deal_preflop(int no_of_players, string* names)
 {
-    int suit,value;
-};
-
-card *hand=NULL;
-
-bool compare(card temp,int no_of_players)
-{
-    int i=0;
-    while(i<no_of_players*7)
-    {
-        if(hand[i].suit<0)
-            break;
-        else
-        {
-            if(hand[i].suit==temp.suit && hand[i].value==temp.value)
-                return true;
-            i++;
-        }
-    }
-    return false;
-}
-
-void init(int no_of_players)
-{
-    for(int i=0;i<no_of_players*7;i++)
-    {
-        hand[i].suit=-1;
-        hand[i].value=-1;
-    }
-}
-
-void deal_card(int no_of_players)
-{
-    int seed=time(NULL);
+    int seed=time(NULL),i=0,j=0;
+    card temp;
     srand(seed);
 
-    hand=new card[no_of_players*7];             // hand has 7 card type values
+    h=new hand[no_of_players];           // hand has no_of_players players having 7 card type values each
 
-    init(no_of_players);
 
-    card temp;
-    int i=0;
-    while(i<no_of_players*7)
+    for(i=0; i<no_of_players; i++)
     {
-        temp.suit=rand()%4;
-        temp.value=rand()%13;
-        if(!compare(temp,no_of_players))
-        {
-           hand[i]=temp;
-           i++;
-        }
+        h[i].name=names[i];
+        for(j=0; j<2; j++)
+         {
+             temp.suit=rand()%4;
+             temp.value=rand()%13;
+             h[i].c[j]=temp;
+         }
     }
 }
 
-
-void display_hands(int no_of_players, string *names)
+void set_in_hand (card temp, int j)
 {
-    int i=0,j=0;
-
-    while(i<no_of_players*7)
-    {
-        if(i%7==0)
+     int i;
+     for(i=0; i<no_of_players; i++)
         {
-           cout<<"\n\n\t\t"<<names[j]<<" cards:\n";
-            j++;
+                h[i].c[j]=temp;
         }
-
-        cout<<"\n\t\t\t";
-        get_card_value(hand[i].value);             // defined in card_name.cpp
-        cout<<" of ";
-        get_suit_name(hand[i].suit);               // defined in card_name.cpp
-        i++;
-
-    }
-    cout<<"\n\n\n";
 }
+
+void deal_flop ()
+{
+    card temp;
+    int seed,i,j=2;
+    seed=time(NULL);
+    srand(seed);
+    cout<<"\t To see the community cards : press any key\n\n\n\t";
+    getch();
+    clr_scrn();       //clear screen
+    cout<<"\tThe three community cards are : ";
+
+    for (i=0; i<3; i++)
+    {
+        cout<<"\n\n\n\t\t";
+        temp.value=rand()%13;
+        temp.suit=rand()%4;
+        get_card_value(temp.value);
+        cout<<" of ";
+        get_suit_name(temp.suit);
+        cout<<"\n\t";
+        set_in_hand(temp,j);
+        j++;
+    }
+}
+
+void deal_turn ()
+{
+     card temp;
+    int seed,i,j=5;
+    seed=time(NULL);
+    srand(seed);
+    cout<<"\t To see the Turn card : press any key\n\n\n\t";
+    getch();
+    clr_scrn();
+    cout<<"\tThe Turn card is : ";
+
+    for (i=0; i<1; i++)
+    {
+        cout<<"\n\n\n\t\t";
+        temp.value=rand()%13;
+        temp.suit=rand()%4;
+        get_card_value(temp.value);
+        cout<<" of ";
+        get_suit_name(temp.suit);
+        cout<<"\n\t";
+        set_in_hand(temp,j);
+        //j++;
+    }
+
+}
+void deal_river ()
+{
+    card temp;
+    int seed,i,j=6;
+    seed=time(NULL);
+    srand(seed);
+    cout<<"\t To see the River card : press any key\n\n\n\t";
+    getch();
+    clr_scrn();
+    cout<<"\tThe River card is : ";
+    for (i=0; i<1; i++)
+    {
+        cout<<"\n\n\n\t\t";
+        temp.value=rand()%13;
+        temp.suit=rand()%4;
+        get_card_value(temp.value);
+        cout<<" of ";
+        get_suit_name(temp.suit);
+        cout<<"\n\t";
+        set_in_hand(temp,j);
+        //j++;
+    }
+
+}
+
+
+void play(int no_of_players)
+{
+    int n=no_of_players,round=1;
+    char choice;
+
+    while(n-->0)
+    {
+    cout << "\n\n\t\t\tROUND "<<round<<"\n";
+    deal_preflop(no_of_players,names);           // defined in play.cpp
+    display_hands(no_of_players,names,2);      // defined in play.cpp
+    deal_flop();
+    display_hands(no_of_players,names,5);
+    deal_turn();
+    display_hands(no_of_players,names,6);
+    deal_river();
+    cout<<"\n\n\t\t Final card hands of all players are as follows : \n\n\t";
+    display_hands(no_of_players,names,7);
+    cout<<"\n\t\t\tTHE WINNER OF ROUND "<<round<<" is: "<<"\n\n";
+    cout<<"\n\n\tWANTS TO CONTINUE(y/n): ";
+    cin>>choice;
+    if(choice=='n')
+        break;
+    round++;
+    clr_scrn();
+    }
+
+}
+

@@ -4,15 +4,10 @@
 
 using namespace std;
 
-
-
-
 int main()
 {
-    display();                                // defined in player.cpp
-    players_settings();                      // defined in player.cpp
-    deal_card(no_of_players);               // defined in play.cpp
-    display_hands(no_of_players,names);    // defined in play.cpp
-    //compare_hands(names,hand);
+    display();
+    players_settings();
+    play(no_of_players);
     return 0;
 }
