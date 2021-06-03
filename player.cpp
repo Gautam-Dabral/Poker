@@ -10,6 +10,7 @@ class hand
 {
     public :
     int credit;
+    int bet=0;
     string name, status;
     card c[7];
 };

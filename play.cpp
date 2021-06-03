@@ -2,6 +2,7 @@
 #include<cstdlib>
 #include<conio.h>
 #include<time.h>
+#include"betting.cpp"
 
 using namespace std;
 
@@ -138,13 +139,17 @@ void play(int no_of_players)
     set_status(no_of_players);
     deal_preflop(no_of_players);           // defined in play.cpp
     display_hands(no_of_players,h,2);      // defined in play.cpp
+    place_bet(no_of_players,0);
     deal_flop();
     display_hands(no_of_players,h,5);
+    place_bet(no_of_players,2);
     deal_turn();
     display_hands(no_of_players,h,6);
+    place_bet(no_of_players,2);
     deal_river();
     cout<<"\n\n\t\t Final card hands of all players are as follows : \n\n\t";
     display_hands(no_of_players,h,7);
+    place_bet(no_of_players,2);
     cout<<"\n\t\t\tTHE WINNER OF ROUND "<<round<<" is: "<<"\n\n";
     cout<<"\n\n\tWANTS TO CONTINUE(y/n): ";
     cin>>choice;

@@ -1,5 +1,7 @@
 poker.depend
 poker.layout
 poker.cbp
+*.o
+*.exe
 bin/
 obj/
