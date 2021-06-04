@@ -6,7 +6,7 @@ struct card
 {
     int suit,value;
 };
-class hand
+class players
 {
     public :
     int credit;
@@ -16,7 +16,7 @@ class hand
 };
 
 int no_of_players, upto, i=0, s_b, b_b, round=1;
-hand *h=NULL;;
+players *p=NULL;;
 
 void clr_scrn()    //function to clear screen
 {
@@ -76,34 +76,34 @@ void players_settings()                          // player input function
          c--;}
    }while(c>0);
 
-    h=new hand[no_of_players];
+    p=new players[no_of_players];
 
     n=no_of_players;
     for(i=0; i<no_of_players; i++)
     {
        cout<<endl<<"\tEnter player"<<plyr+1<<" name: ";
-       cin>>h[i].name;
+       cin>>p[i].name;
        plyr++;
-       h[i].credit=10000;
+       p[i].credit=10000;
     }
 
 }
 
-void display_hands(int no_of_players,hand *h, int upto)
+void display_players(int upto)
 {
     int i=0,j=0;
 
     for(i=0; i<no_of_players; i++)
         {
-            cout<<"\n\n\t\t"<<h[i].name<<"      "<<h[i].status;
-            cout<<"\n\n\t\tCredit : "<<h[i].credit<<" Points";
+            cout<<"\n\n\t\t"<<p[i].name<<"      "<<p[i].status;
+            cout<<"\n\n\t\tCredit : "<<p[i].credit<<" Points";
             cout<<"\n\n\t\tCards : ";
             cout<<"\n\t\t\t";
             for (j=0; j<upto; j++)
                 {
-                    get_card_value(h[i].c[j].value);
+                    get_card_value(p[i].c[j].value);
                     cout<<" of ";
-                    get_suit_name(h[i].c[j].suit);
+                    get_suit_name(p[i].c[j].suit);
                     cout<<"\n\t\t\t";
                 }
         }

@@ -7,7 +7,7 @@
 using namespace std;
 
 
-void deal_preflop(int no_of_players)
+void deal_preflop()
 {
     int seed=time(NULL),i=0,j=0;
     card temp;
@@ -19,7 +19,7 @@ void deal_preflop(int no_of_players)
          {
              temp.suit=rand()%4;
              temp.value=rand()%13;
-             h[i].c[j]=temp;
+             p[i].c[j]=temp;
          }
     }
 }
@@ -29,7 +29,7 @@ void set_in_hand (card temp, int j)
      int i;
      for(i=0; i<no_of_players; i++)
         {
-                h[i].c[j]=temp;
+                p[i].c[j]=temp;
         }
 }
 
@@ -108,26 +108,26 @@ void deal_river ()
 
 }
 
-void set_status (int no_of_players)
+void set_status ()
 {
     if(round<no_of_players)
     {
-    h[(round%no_of_players)-1].status="Dealer";
-    h[round%no_of_players].status="Small-Blind";
-    h[(round+1)%no_of_players].status="Big-Blind";
+    p[(round%no_of_players)-1].status="Dealer";
+    p[round%no_of_players].status="Small-Blind";
+    p[(round+1)%no_of_players].status="Big-Blind";
     }
     else if (round==no_of_players)
-    {h[no_of_players-1].status="Dealer";
-    h[0].status="Small-Blind";
-    h[1].status="Big-Blind";}
+    {p[no_of_players-1].status="Dealer";
+    p[0].status="Small-Blind";
+    p[1].status="Big-Blind";}
     else {}
 }
-void erase_status (int no_of_players)
+void erase_status ()
 {
     for (int i=0; i<no_of_players; i++)
-        h[i].status="               ";
+        p[i].status="               ";
 }
-void play(int no_of_players)
+void play()
 {
     int n=no_of_players;
     char choice;
@@ -136,27 +136,27 @@ void play(int no_of_players)
     {
     cout << "\n\n\t\t\tROUND "<<round<<"\n";
 
-    set_status(no_of_players);
-    deal_preflop(no_of_players);           // defined in play.cpp
-    display_hands(no_of_players,h,2);      // defined in play.cpp
-    place_bet(no_of_players,0);
+    set_status();
+    deal_preflop();           // defined in play.cpp
+    display_players(2);      // defined in play.cpp
+    place_bet(0);
     deal_flop();
-    display_hands(no_of_players,h,5);
-    place_bet(no_of_players,2);
+    display_players(5);
+    place_bet(2);
     deal_turn();
-    display_hands(no_of_players,h,6);
-    place_bet(no_of_players,2);
+    display_players(6);
+    place_bet(2);
     deal_river();
     cout<<"\n\n\t\t Final card hands of all players are as follows : \n\n\t";
-    display_hands(no_of_players,h,7);
-    place_bet(no_of_players,2);
+    display_players(7);
+    place_bet(2);
     cout<<"\n\t\t\tTHE WINNER OF ROUND "<<round<<" is: "<<"\n\n";
     cout<<"\n\n\tWANTS TO CONTINUE(y/n): ";
     cin>>choice;
     if(choice=='n')
         break;
     round++;
-    erase_status(no_of_players);
+    erase_status();
     clr_scrn();
     }
 

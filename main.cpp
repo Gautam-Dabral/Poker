@@ -8,6 +8,6 @@ int main()
 {
     display();
     players_settings();
-    play(no_of_players);
+    play();
     return 0;
 }
