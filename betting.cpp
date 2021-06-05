@@ -1,6 +1,5 @@
 #include<iostream>
 
-
 int c,pot=0;
 
 void fold ()

@@ -1,22 +1,31 @@
 #include<iostream>
 #include"card_name.cpp"
+
 using namespace std;
 
-struct card
+class card
 {
+    public :
     int suit,value;
+    card ()
+    {suit=-1; value=-1;}           // card values and suits initialized to -1
+    card (card &temp)             // copy constructor for card type values
+    {
+        suit=temp.suit;
+        value=temp.value;
+    }
 };
 class players
 {
     public :
-    int credit;
-    int bet=0;
+    int credit, bet=0;
     string name, status;
     card c[7];
 };
 
 int no_of_players, upto, i=0, s_b, b_b, round=1;
 players *p=NULL;;
+
 
 void clr_scrn()    //function to clear screen
 {

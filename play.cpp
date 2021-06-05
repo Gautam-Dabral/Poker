@@ -2,7 +2,8 @@
 #include<cstdlib>
 #include<conio.h>
 #include<time.h>
-#include"betting.cpp"
+#include"pokerlogic.cpp"
+
 
 using namespace std;
 

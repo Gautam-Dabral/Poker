@@ -1,5 +1,6 @@
 #include<iostream>
 #include"player.cpp"
+#include"betting.cpp"
 #include"play.cpp"
 
 using namespace std;
