@@ -151,8 +151,9 @@ void play()
     cout<<"\n\n\t\t Final card hands of all players are as follows : \n\n\t";
     display_players(7);
     place_bet(2);
-    cout<<"\n\t\t\tTHE WINNER OF ROUND "<<round<<" is: "<<"\n\n";
-    cout<<"\n\n\tWANTS TO CONTINUE(y/n): ";
+    find_winner();
+    p[i].credit+=pot;
+    cout<<"\n\n\tPLAY ANOTHER ROUND, Enter 'y' for YES and 'n' for NO : ";
     cin>>choice;
     if(choice=='n')
         break;

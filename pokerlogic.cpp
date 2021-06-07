@@ -1,8 +1,10 @@
 #include<iostream>
+#include<string.h>
 
 using namespace std;
 
-int k=0,j=0;
+int k=0,j=0,help;
+string winner;
 card c_high, c_kicker;
 
 void sort_by_value (int i)
@@ -263,3 +265,71 @@ bool ispair (int i)
         return(false);
 }
 
+bool ishigh (int i)
+{
+    sort_by_value(i);
+    if(p[i].c[0].value==0)
+        {c_high=p[i].c[0];
+        c_kicker=p[i].c[6];
+        return(true);}
+    else
+        {c_high=p[i].c[6];
+        c_kicker=p[i].c[5];
+        return (true);}
+}
+int check_hand (int i, int help)
+{
+    {
+        if(isroyal_flush(i))
+            return (help);
+        else if (isstraight_flush(i))
+        {help+=(c_high.value+c_kicker.value-50);
+        return (help);}
+        else if (isfour_of_a_kind(i))
+         {help+=(c_high.value+c_kicker.value-100);
+        return (help);}
+        else if (isfull_house(i))
+        {help+=(c_high.value+c_kicker.value-150);
+        return (help);}
+        else if (isflush(i))
+        {help+=(c_high.value+c_kicker.value-200);
+        return(help);}
+        else if (isstraight(i))
+        {help+=(c_high.value+c_kicker.value-250);
+        return(help);}
+        else if (isthree_of_a_kind(i))
+        {help+=(c_high.value+c_kicker.value-300);
+        return(help);}
+        else if (is2pair(i))
+        {help+=(c_high.value+c_kicker.value-350);
+        return(help);}
+        else if (ispair(i))
+        {help+=(c_high.value+c_kicker.value-400);
+        return(help);}
+        else if (ishigh(i))
+        {help+=(c_high.value+c_kicker.value-450);
+        return(help);}
+        else
+        {cout<<"\n\nError deciding winner\n\n";}
+
+    }
+}
+void find_winner ()
+{
+    int score=0;
+    for(i=0; i<no_of_players; i++)
+    {
+        help=1000;
+        if(check_hand(i,help)>score)
+        {score=check_hand(i,help);
+        winner=(p[i].name);}
+    }
+    cout<<"\n\t\t\tTHE WINNER OF ROUND "<<round<<" is : ";
+    cout<<"\n\n\n\t\t\t\t";
+    for(int i=0;i<50;i++)
+        cout<<"*";
+    cout<<"\n\n\t\t\t\t\t\t"<<winner<<"\t\t\t\t\t\t";
+    cout<<"\n\n\n\t\t\t\t";
+    for(int i=0;i<50;i++)
+        cout<<"*";
+}
