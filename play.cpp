@@ -109,6 +109,7 @@ void deal_river ()
 
 }
 
+/*
 void set_status ()
 {
     if(round<no_of_players)
@@ -127,7 +128,7 @@ void erase_status ()
 {
     for (int i=0; i<no_of_players; i++)
         p[i].status="               ";
-}
+}*/
 void play()
 {
     int n=no_of_players;
@@ -138,21 +139,22 @@ void play()
     cout << "\n\n\t\t\tROUND "<<round<<"\n";
 
     set_status();
-    deal_preflop();           // defined in play.cpp
-    display_players(2);      // defined in play.cpp
-    place_bet(0);
+    deal_preflop();
+    display_players(2);
+    place_bet();
     deal_flop();
     display_players(5);
-    place_bet(2);
+    place_bet();
     deal_turn();
     display_players(6);
-    place_bet(2);
+    place_bet();
     deal_river();
     cout<<"\n\n\t\t Final card hands of all players are as follows : \n\n\t";
     display_players(7);
-    place_bet(2);
+    place_bet();
     find_winner();
-    p[i].credit+=pot;
+    pot=0;
+    erase_status();
     cout<<"\n\n\tPLAY ANOTHER ROUND, Enter 'y' for YES and 'n' for NO : ";
     cin>>choice;
     if(choice=='n')

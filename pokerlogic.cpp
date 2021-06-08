@@ -316,14 +316,16 @@ int check_hand (int i, int help)
 }
 void find_winner ()
 {
-    int score=0;
+    int score=0,k;
     for(i=0; i<no_of_players; i++)
     {
         help=1000;
         if(check_hand(i,help)>score)
         {score=check_hand(i,help);
+        k=i;
         winner=(p[i].name);}
     }
+    p[k].credit+=pot;
     cout<<"\n\t\t\tTHE WINNER OF ROUND "<<round<<" is : ";
     cout<<"\n\n\n\t\t\t\t";
     for(int i=0;i<50;i++)

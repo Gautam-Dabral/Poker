@@ -1,4 +1,5 @@
 #include<iostream>
+#include<cstdio>
 #include"card_name.cpp"
 
 using namespace std;
@@ -19,7 +20,8 @@ class players
 {
     public :
     int credit, bet=0;
-    string name, status;
+    string name;
+    char status[15];
     card c[7];
 };
 
@@ -104,7 +106,8 @@ void display_players(int upto)
 
     for(i=0; i<no_of_players; i++)
         {
-            cout<<"\n\n\t\t"<<p[i].name<<"      "<<p[i].status;
+            cout<<"\n\n\t\t"<<p[i].name;
+            printf("\t\t%s",p[i].status);
             cout<<"\n\n\t\tCredit : "<<p[i].credit<<" Points";
             cout<<"\n\n\t\tCards : ";
             cout<<"\n\t\t\t";
