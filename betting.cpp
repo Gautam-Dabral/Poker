@@ -48,23 +48,46 @@ void set_bet ()
             {}
 }
 
-int check_bet ()
+bool check_bet (int i)
 {
-    for(i=0; i<=no_of_players-1; i++)
+    if(p[(i-1)%no_of_players].bet>p[i%no_of_players].bet)
+        return (true);
+    else
+        return (false);
+}
+
+bool check_credit (int i)
+{
+    int j=0;
+    if(p[i%no_of_players].credit==0)
     {
-        if(p[(i+1)%no_of_players].bet==p[(i)%no_of_players].bet)
-            return(1);
-        else
-            return (0);
+       strcpy(p[i%no_of_players].status, "is out of credit");
+       p[i%no_of_players].bet=p[(i-1)%no_of_players].bet;
+       for (j=0; j<7; j++)
+       {p[i%no_of_players].c[j].value=-1;
+       p[i%no_of_players].c[j].suit=-1;}
+       return (false);
+    }
+    else if (p[i%no_of_players].credit<p[(i-1)%no_of_players].bet && p[i%no_of_players].credit>0)
+    {
+        strcpy(p[i%no_of_players].status, "is all in");
+        p[i%no_of_players].bet=p[i%no_of_players].credit;
+        p[i%no_of_players].credit-=p[i%no_of_players].bet;
+        pot+=p[i%no_of_players].bet;
+        return (false);
+    }
+    else
+    {
+        return (true);
     }
 }
 
-
 void call_bet(int i)
 {
-    p[i%no_of_players].bet=p[i%(no_of_players-1)].bet;
+    if(check_credit(i))
+    {p[i%no_of_players].bet=p[(i-1)%no_of_players].bet;
     p[i%no_of_players].credit-=p[i%no_of_players].bet;
-    pot+=p[i%no_of_players].bet;
+    pot+=p[i%no_of_players].bet;}
 }
 
 void raise_bet (int i)
@@ -75,8 +98,12 @@ void raise_bet (int i)
     do
     {cin>>help;
     if(p[i%(no_of_players-1)].bet<help)
-    {p[i%no_of_players].bet=help;
-    j++;}
+    {
+        if(check_credit(i))
+        p[i%no_of_players].bet=help;
+
+        j++;
+    }
     else
     {cout<<"Amount entered should be bigger than the previous bet : ";}
     }while(j<1);
@@ -89,49 +116,50 @@ void fold (int i)
     {
         for(j=0; j<7; j++)
         p[i%no_of_players].c[j].value=-1;
+        p[i%no_of_players].c[j].suit=-1;
+        strcpy(p[i%no_of_players].status,"has folded");
+        p[i%no_of_players].bet=p[(i-1)%no_of_players].bet;
     }
 
 }
 
-void place_bet ()
+void place_bet (int round)
 {
-    int i,j;
+    int j,i=round+2;
     bet_innit();
     set_bet();
-    i=round+2;
-    while(1-check_bet())
+    while(check_bet(i))
     {
-            if(p[i%(no_of_players)].c[0].value>=0)
+            if(p[i%(no_of_players)].c[0].value > -1)
            {
             cout<<p[i%(no_of_players)].name;
             cout<<", it's your turn : "<<"\n\n\t\t\t1. Fold ( Forfeit this round )"<<"\n\n\t\t\t2. Call ( Bet the same amount )"<<"\n\n\t\t\t3. Raise ( Enter a higher bet )\n\n\t\t\t";
             j=0;
-            do
+            while(j<1)
             {cin>>c;
             if(c==1)
                 {
                     strcpy(p[i%(no_of_players)].status,"folded");
-                    fold(i%(no_of_players));
+                    fold(i);
                     j++;
                 }
             else if (c==2)
                 {
-                    call_bet(i%(no_of_players));
+                    call_bet(i);
                     j++;
                 }
             else if (c==3)
                 {
-                    raise_bet(i%(no_of_players));
+                    raise_bet(i);
                     j++;
                 }
             else
                 {
                     cout<<"Error : Enter a valid choice - ";
                 }
-            }while(j<1);
-
+            }
+            ++i;
            }
-           i++;
     }
 
 }

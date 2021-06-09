@@ -109,26 +109,6 @@ void deal_river ()
 
 }
 
-/*
-void set_status ()
-{
-    if(round<no_of_players)
-    {
-    p[(round%no_of_players)-1].status="Dealer";
-    p[round%no_of_players].status="Small-Blind";
-    p[(round+1)%no_of_players].status="Big-Blind";
-    }
-    else if (round==no_of_players)
-    {p[no_of_players-1].status="Dealer";
-    p[0].status="Small-Blind";
-    p[1].status="Big-Blind";}
-    else {}
-}
-void erase_status ()
-{
-    for (int i=0; i<no_of_players; i++)
-        p[i].status="               ";
-}*/
 void play()
 {
     int n=no_of_players;
@@ -141,17 +121,17 @@ void play()
     set_status();
     deal_preflop();
     display_players(2);
-    place_bet();
+    place_bet(round);
     deal_flop();
     display_players(5);
-    place_bet();
+    place_bet(round);
     deal_turn();
     display_players(6);
-    place_bet();
+    place_bet(round);
     deal_river();
     cout<<"\n\n\t\t Final card hands of all players are as follows : \n\n\t";
     display_players(7);
-    place_bet();
+    place_bet(round);
     find_winner();
     pot=0;
     erase_status();

@@ -46,7 +46,7 @@ void get_card_value(int p)
             {cout<<"King";
             break;}
         default :
-            {cout<<"error"<<endl;}
+            {cout<<" "<<endl;}
         }
 }
 
@@ -56,18 +56,19 @@ void get_suit_name(int q)
 
     switch (q)
         {
-        case 00 :
-            {cout<<"Spades";
+        case 0:
+            {cout<<" of Spades";
             break;}
-        case 01 :
-            {cout<<"Hearts";
+        case 1 :
+            {cout<<" of Hearts";
             break;}
-        case 02 :
-            {cout<<"Diamond";
+        case 2 :
+            {cout<<" of Diamonds";
             break;}
-        case 03 :
-            {cout<<"Clubs";
+        case 3 :
+            {cout<<" of Clubs";
             break;}
-
+        default :
+            cout<<" "<<endl;
         }
 }

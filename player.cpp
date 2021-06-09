@@ -114,7 +114,6 @@ void display_players(int upto)
             for (j=0; j<upto; j++)
                 {
                     get_card_value(p[i].c[j].value);
-                    cout<<" of ";
                     get_suit_name(p[i].c[j].suit);
                     cout<<"\n\t\t\t";
                 }

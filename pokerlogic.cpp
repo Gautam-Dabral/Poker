@@ -5,7 +5,7 @@ using namespace std;
 
 int k=0,j=0,help;
 string winner;
-card c_high, c_kicker;
+card c_high, c_kicker, c_rest;
 
 void sort_by_value (int i)
 {
@@ -283,31 +283,31 @@ int check_hand (int i, int help)
         if(isroyal_flush(i))
             return (help);
         else if (isstraight_flush(i))
-        {help+=(c_high.value+c_kicker.value-50);
+        {help+=(c_high.value+c_kicker.value-100);
         return (help);}
         else if (isfour_of_a_kind(i))
-         {help+=(c_high.value+c_kicker.value-100);
+         {help+=(c_high.value+c_kicker.value-200);
         return (help);}
         else if (isfull_house(i))
-        {help+=(c_high.value+c_kicker.value-150);
+        {help+=(c_high.value+c_kicker.value-300);
         return (help);}
         else if (isflush(i))
-        {help+=(c_high.value+c_kicker.value-200);
-        return(help);}
-        else if (isstraight(i))
-        {help+=(c_high.value+c_kicker.value-250);
-        return(help);}
-        else if (isthree_of_a_kind(i))
-        {help+=(c_high.value+c_kicker.value-300);
-        return(help);}
-        else if (is2pair(i))
-        {help+=(c_high.value+c_kicker.value-350);
-        return(help);}
-        else if (ispair(i))
         {help+=(c_high.value+c_kicker.value-400);
         return(help);}
+        else if (isstraight(i))
+        {help+=(c_high.value+c_kicker.value-500);
+        return(help);}
+        else if (isthree_of_a_kind(i))
+        {help+=(c_high.value+c_kicker.value-600);
+        return(help);}
+        else if (is2pair(i))
+        {help+=(c_high.value+c_kicker.value-700);
+        return(help);}
+        else if (ispair(i))
+        {help+=(c_high.value+c_kicker.value-800);
+        return(help);}
         else if (ishigh(i))
-        {help+=(c_high.value+c_kicker.value-450);
+        {help+=(c_high.value+c_kicker.value-900);
         return(help);}
         else
         {cout<<"\n\nError deciding winner\n\n";}
@@ -316,21 +316,29 @@ int check_hand (int i, int help)
 }
 void find_winner ()
 {
-    int score=0,k;
+    int *score;
+    int k, max_score;
+    score = new int[no_of_players];
     for(i=0; i<no_of_players; i++)
     {
-        help=1000;
-        if(check_hand(i,help)>score)
-        {score=check_hand(i,help);
-        k=i;
-        winner=(p[i].name);}
+        help=2000;
+        score[i]=check_hand(i,help);
+        cout<<"\n\t"<<p[i].name<<" - "<<score[i]<<endl;
     }
-    p[k].credit+=pot;
+    max_score=score[0];
+    for(i=0; i<no_of_players; i++)
+    {
+        if(score[i]<score[i+1])
+            {max_score=score[i+1];
+            winner=p[i+1].name;}
+        else
+            {winner=p[i].name;}
+    }
     cout<<"\n\t\t\tTHE WINNER OF ROUND "<<round<<" is : ";
     cout<<"\n\n\n\t\t\t\t";
     for(int i=0;i<50;i++)
         cout<<"*";
-    cout<<"\n\n\t\t\t\t\t\t"<<winner<<"\t\t\t\t\t\t";
+    cout<<"\n\n\t\t\t\t\t"<<winner<<" - "<<max_score<<" points"<<"\t\t\t\t\t";
     cout<<"\n\n\n\t\t\t\t";
     for(int i=0;i<50;i++)
         cout<<"*";
