@@ -50,7 +50,6 @@ class players
     }
 };
 
-
 //------------------------display section---------------------------
 
 void clr_scrn()                                   //function to clear screen
@@ -130,14 +129,16 @@ void get_suit_name(int q)
         }
 }
 
+players *p = new players[no_of_players];
+
 void display()                                   // displays intro
 {
     int c,j=0;
     cout<<"\t\t\t\t";
-    for(int i=0;i<50;i++)
+    for(i=0;i<50;i++)
         cout<<"*";
     cout<<"\n\n\t\t\t\t\t       TEXAS HOLD\'EM POKER \n\n\t\t\t\t";
-    for(int i=0;i<50;i++)
+    for(i=0;i<50;i++)
         cout<<"*";
     cout<<"\n\n\n\t\tSelect stakes - "<<"\n\n\n\t\t\t1. 100 - 200\n\n\n\t\t\t2. 200 - 400\n\n\n\t\t\t3. 500 - 1000\n\n\t\t";
     cin>>c;
@@ -158,6 +159,11 @@ void display()                                   // displays intro
             cin>>c;}
         }while(j<1);
     }
+
+}
+
+void players_settings()                          // player input function
+{
     cout<<"\n\n\n\tEnter the no of players : ";
     do
    {
@@ -176,21 +182,15 @@ void display()                                   // displays intro
          {cout<<"\n\n\t\t\t********LET\'S BEGIN THE GAME********\n\n\t";
          c--;}
    }while(c>0);
-}
 
-players * p = new players[no_of_players];
+   cout<<" No of players = "<<no_of_players;
+   cout<<"\n\tsmall blind, big blind "<<s_b<<" "<<b_b<<endl;
 
-void players_settings()                          // player input function
-{
-    int n,plyr=0;
-
-    n=no_of_players;
-
-    for(i=0; i<no_of_players; i++)
+   for(i=0; i<no_of_players; i++)
     {
-       cout<<endl<<"\tEnter player"<<plyr+1<<" name: ";
+       cout<<endl<<"\tEnter player"<<i+1<<" name : ";
        cin>>p[i].name;
-       plyr++;
+
        if (s_b==100)
        p[i].credit=10000;
        else if (s_b==200)
