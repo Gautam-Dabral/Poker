@@ -5,3 +5,4 @@ poker.cbp
 *.exe
 bin/
 obj/
+.vscode/
