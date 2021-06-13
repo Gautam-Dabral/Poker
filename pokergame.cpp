@@ -8,7 +8,7 @@
 
 using namespace std;
 
-int    no_of_players, upto, s_b, b_b, round=1;
+int    no_of_players, upto, s_b, b_b, Round=1;
 int    c, help;
 int    i=0, j=0, k=0, pot=0;
 
@@ -29,13 +29,29 @@ class card
 class players
 {
     public :
+
     int credit, bet, score;
     string name;
     char status[15];
     card c[7], c_high, c_kicker;
 
-    players ()
-    {}
+    players ()                              // default constructor
+    {
+        credit=0;
+        bet=0;
+        score=0;
+        name="NULL";
+        strcpy(status, "NULL");
+        c_high.value=-1;
+        c_high.suit=-1;
+        c_kicker.value=-1;
+        c_kicker.suit=-1;
+        for(i=0; i<7; i++)
+        {
+            c[i].value=-1;
+            c[i].suit=-1;
+        }
+    }
     players (players &P)                    // copy constructor for players type objects
     {
        credit=P.credit;
@@ -49,6 +65,7 @@ class players
             c[i]=P.c[i];
     }
 };
+
 
 //------------------------display section---------------------------
 
@@ -129,7 +146,8 @@ void get_suit_name(int q)
         }
 }
 
-players *p = new players[no_of_players];
+players *p = NULL;
+p = new players[no_of_players];
 
 void display()                                   // displays intro
 {
@@ -159,7 +177,6 @@ void display()                                   // displays intro
             cin>>c;}
         }while(j<1);
     }
-
 }
 
 void players_settings()                          // player input function
@@ -331,14 +348,14 @@ void deal_river ()
 void set_status ()
 {
     int i;
-    if(round<no_of_players)
+    if(Round<no_of_players)
     {
-        i=(round-1)%no_of_players;
+        i=(Round-1)%no_of_players;
         strcpy(p[i].status,"Dealer");
         strcpy(p[i+1].status,"Small-Blind");
         strcpy(p[i+2].status,"Big-Blind");
     }
-    else if (round==no_of_players)
+    else if (Round==no_of_players)
     {
         strcpy(p[no_of_players-1].status,"Dealer");
         strcpy(p[0].status,"Small-Blind");
@@ -352,9 +369,7 @@ void erase_status ()
         strcpy(p[i].status,"            ");
 }
 
-
 // ----------------------------betting section-------------------------
-
 
 void bet_innit ()
 {
@@ -456,9 +471,9 @@ void fold (int i)
 
 }
 
-void place_bet (int round)
+void place_bet (int Round)
 {
-    int j,i=round+2;
+    int j,i=Round+2;
     bet_innit();
     set_bet();
     while(check_bet(i))
@@ -466,7 +481,7 @@ void place_bet (int round)
             if(p[i%(no_of_players)].c[0].value > -1)
            {
             cout<<p[i%(no_of_players)].name;
-            cout<<", it's your turn : "<<"\n\n\t\t\t1. Fold ( Forfeit this round )"<<"\n\n\t\t\t2. Call ( Bet the same amount )"<<"\n\n\t\t\t3. Raise ( Enter a higher bet )\n\n\t\t\t";
+            cout<<", it's your turn : "<<"\n\n\t\t\t1. Fold ( Forfeit this Round )"<<"\n\n\t\t\t2. Call ( Bet the same amount )"<<"\n\n\t\t\t3. Raise ( Enter a higher bet )\n\n\t\t\t";
             j=0;
             while(j<1)
             {cin>>c;
@@ -565,9 +580,7 @@ bool isflush (int i)
             return(true);
             }
     }
-    if(j>=6)
     return (false);
-
 }
 
 bool isstraight (int i)
@@ -872,7 +885,8 @@ int check_hand (int i, int help)                 //determines card hand strength
         {help+=(p[i].c_high.value+p[i].c_kicker.value-45000);
         return(help);}
         else
-        {cout<<"\n\nError deciding winner\n\n";}
+        {cout<<"\n\nError deciding winner\n\n";
+        return(0);}
 
     }
 }
@@ -907,7 +921,7 @@ void find_winner ()              // finds the winner after evaluating check_hand
     //----------------------------
     if(k==0)
     {
-        cout<<"\n\t\t\tTHE WINNER OF ROUND "<<round<<" is : ";
+        cout<<"\n\t\t\tTHE WINNER OF Round "<<Round<<" is : ";
         cout<<"\n\n\n\t\t\t\t";
         for(int i=0;i<50;i++)
            cout<<"*";
@@ -923,7 +937,7 @@ void find_winner ()              // finds the winner after evaluating check_hand
     {
         if(p[0].c_kicker.value>p[1].c_kicker.value)
            {
-               cout<<"\n\t\t\tTHE WINNERS OF ROUND "<<round<<" are : ";
+               cout<<"\n\t\t\tTHE WINNERS OF Round "<<Round<<" are : ";
                cout<<"\n\n\n\t\t\t\t";
                for(int i=0;i<50;i++)
                  cout<<"*";
@@ -938,7 +952,7 @@ void find_winner ()              // finds the winner after evaluating check_hand
            }
         else if (p[0].c_kicker.value==p[1].c_kicker.value)
         {
-            cout<<"\n\t\t\tTHE WINNERS OF ROUND "<<round<<" are : ";
+            cout<<"\n\t\t\tTHE WINNERS OF Round "<<Round<<" are : ";
         cout<<"\n\n\n\t\t\t\t";
         for(int i=0;i<50;i++)
            cout<<"*";
@@ -954,7 +968,7 @@ void find_winner ()              // finds the winner after evaluating check_hand
         }
 
         else
-        cout<<"\n\t\t\tTHE WINNER OF ROUND "<<round<<" is : ";
+        cout<<"\n\t\t\tTHE WINNER OF Round "<<Round<<" is : ";
         cout<<"\n\n\n\t\t\t\t";
         for(int i=0;i<50;i++)
            cout<<"*";
@@ -969,8 +983,8 @@ void find_winner ()              // finds the winner after evaluating check_hand
     }
     else
     {
-        cout<<"\n\n\t\t\tWinner could not be decided this round";
-        cout<<"\n\n\t\tPlay another round";
+        cout<<"\n\n\t\t\tWinner could not be decided this Round";
+        cout<<"\n\n\t\tPlay another Round";
     }
 
 }
@@ -982,32 +996,33 @@ void play()                                 // driver code for gameplay
 
     while(n-->0)
     {
-    cout << "\n\n\t\t\tROUND "<<round<<"\n";
+    cout << "\n\n\t\t\tRound "<<Round<<"\n";
 
     set_status();
     deal_preflop();
     display_players(2);
-    place_bet(round);
+    place_bet(Round);
     deal_flop();
     display_players(5);
-    place_bet(round);
+    place_bet(Round);
     deal_turn();
     display_players(6);
-    place_bet(round);
+    place_bet(Round);
     deal_river();
     cout<<"\n\n\t\t Final card hands of all players are as follows : \n\n\t";
     display_players(7);
-    place_bet(round);
+    place_bet(Round);
     find_winner();
     erase_status();
-    cout<<"\n\n\tPLAY ANOTHER ROUND, Enter 'y' for YES and 'n' for NO : ";
+    cout<<"\n\n\tPLAY ANOTHER Round, Enter 'y' for YES and 'n' for NO : ";
     cin>>choice;
     if(choice=='n')
         break;
-    round++;
+    Round++;
     erase_status();
     clr_scrn();
     }
+   // delete[] p;
 
 }
 

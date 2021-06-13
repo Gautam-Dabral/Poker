@@ -7,11 +7,11 @@ Big Blind - BB (on the left side of SB = makes twice of minimum bet)
 ***Dealer keeps on shifting to the left and so does 
 the SB and BB in accordance to the dealer****
 
-The game is played in 4 rounds :
-1 - Preflop round - (Every player is dealt 2 cards(faced down) and 1st round of betting)
-2 - Flop round - (3 community cards are dealt and 2nd round of betting)
-3 - The turn - (1 community card is dealt and 3rd round of betting)
-4 - The river - (1 community card is dealt and 4th round of betting)
+The game is played in 4 Rounds :
+1 - Preflop Round - (Every player is dealt 2 cards(faced down) and 1st Round of betting)
+2 - Flop Round - (3 community cards are dealt and 2nd Round of betting)
+3 - The turn - (1 community card is dealt and 3rd Round of betting)
+4 - The river - (1 community card is dealt and 4th Round of betting)
 
 Every player has 3 options :
 1 - fold (leave the game and wait for next game)
